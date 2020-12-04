@@ -6,7 +6,7 @@ def main(args=None):
 
     lines = file.readlines()
 
-    numbers = map(int, lines)
+    numbers = list(map(int, lines))
 
     product = find_product_of_2(numbers)
 
@@ -42,6 +42,8 @@ def find_product_of_3(numbers):
             for c in numbers:
                 if a + b + c == 2020:
                     return a * b * c
+    
+    return 0
 
 if __name__ == "__main__":
     sys.exit(main())
