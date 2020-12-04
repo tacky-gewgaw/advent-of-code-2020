@@ -3,7 +3,7 @@ import re
 
 
 def main(args=None):
-    file = open('day4/input.txt', 'r')
+    file = open('day04/input.txt', 'r')
 
     lines = file.read().splitlines()
 

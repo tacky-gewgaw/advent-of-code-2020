@@ -2,7 +2,7 @@ import sys
 
 
 def main(args=None):
-    file = open('day1/input.txt', 'r')
+    file = open('day01/input.txt', 'r')
 
     lines = file.readlines()
 
