@@ -10,7 +10,7 @@ def main(args=None):
 
     lines = file.read().splitlines()
 
-    rules = {}
+    rules_i = {}
 
     rules_inverted = {}
 
@@ -30,26 +30,14 @@ def main(args=None):
 
         for containee in containees:
             color, amount = parse_bags(containee)
-            if color in rules.keys():
-                rules[color].append((cc, amount))
+            if color in rules_i:
+                rules_i[color].add(cc)
             else:
-                rules[color] = [(cc, amount)]
+                rules_i[color] = set([cc])
             
             rules_inverted[cc][color] = int(amount)
 
-    shiny_gold_containers = set(['shiny gold'])
-
-    result_size = len(shiny_gold_containers)
-    search = True
-
-    while search:
-        result = reduce(lambda a, b: a.union(b), list(map(lambda c: find_containers(c, rules), shiny_gold_containers)))
-        shiny_gold_containers = shiny_gold_containers.union(result)
-        search = len(shiny_gold_containers) > result_size
-        result_size = len(shiny_gold_containers)
-    
-    
-    print(result_size - 1)
+    print(count_containers('shiny gold', rules_i))
 
     print(graph_traversal_total_bags('shiny gold', rules_inverted))
 
@@ -74,13 +62,25 @@ def parse_color(string: str) -> str:
     except AttributeError:
         print(f'AttributeError: failed on {string}')
 
+def count_containers(color, graph):
+    result_containers = set([color])
+
+    result_size = len(result_containers)
+    search = True
+
+    while search:
+        result = reduce(lambda a, b: a.union(b), list(map(lambda c: find_containers(c, graph), result_containers)))
+        result_containers = result_containers.union(result)
+        search = len(result_containers) > result_size
+        result_size = len(result_containers)
+
+    return result_size - 1
+
 def find_containers(color, graph):
-    if color not in graph.keys():
+    if color not in graph:
         return set()
 
-    containers = graph[color]
-
-    return set([ color for color, amount in containers ])
+    return set(graph[color])
 
 def graph_traversal_total_bags(color, graph) -> int:
     known_bags = {}
