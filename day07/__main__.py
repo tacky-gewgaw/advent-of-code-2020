@@ -12,7 +12,7 @@ def main(args=None):
 
     rules_i = {}
 
-    rules_inverted = {}
+    rules = {}
 
     for line in lines:
         sline = line.split('contain')
@@ -22,11 +22,11 @@ def main(args=None):
 
         containees = sline[1].split(',')
         if containees == [' no other bags.']:
-            rules_inverted[cc] = {}
+            rules[cc] = {}
             continue
 
-        if cc not in rules_inverted:
-            rules_inverted[cc] = {}
+        if cc not in rules:
+            rules[cc] = {}
 
         for containee in containees:
             color, amount = parse_bags(containee)
@@ -35,11 +35,11 @@ def main(args=None):
             else:
                 rules_i[color] = set([cc])
             
-            rules_inverted[cc][color] = int(amount)
+            rules[cc][color] = int(amount)
 
     print(count_containers('shiny gold', rules_i))
 
-    print(graph_traversal_total_bags('shiny gold', rules_inverted))
+    print(graph_traversal_total_bags('shiny gold', rules))
 
 def parse_bags(string: str) -> (str, int):
     try:
