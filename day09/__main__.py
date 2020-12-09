@@ -39,7 +39,7 @@ def find_encryption_weakness(target: int, sequence: [int]):
         if result:
             return max(result) + min(result)
 
-def select_sum_to(target: int, seq: [int], acc = []) -> [int]:
+def select_sum_to(target: int, seq: [int], acc: [int]) -> [int]:
     head, *tail = seq
 
     remaining = target - head
