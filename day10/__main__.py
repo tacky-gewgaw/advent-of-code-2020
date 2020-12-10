@@ -38,6 +38,7 @@ def calc_diff_of_adapters(joltages: [int]) -> int:
 
 store = {}
 
+# Dynamic programming, baby!
 def calc_arrangements(joltages: [int]) -> int:
     for j in sorted(joltages, reverse=True):
         connections = get_connections(j, joltages)
@@ -45,10 +46,9 @@ def calc_arrangements(joltages: [int]) -> int:
         if connections == []:
             store[j] = 1
         else:
-            print([ store[c] for c in connections ])
             store[j] = sum([ store[c] for c in connections ])
     
-    return store[0]
+    return store[min(joltages)]
 
 def get_connections(joltage: int, all: [int]) -> [int]:
     candidates = { joltage+1, joltage+2, joltage+3 }
