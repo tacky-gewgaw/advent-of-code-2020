@@ -30,6 +30,6 @@ jobs:
     - name: Analysis with wily
       run: |
         # compile cache
-        wily build src/ --debug
+        wily build .
         # compare previous commit
-        wily diff src/ -r HEAD^1
+        wily diff . -r HEAD^1
