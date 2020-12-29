@@ -20,6 +20,7 @@ jobs:
         python -m pip install --upgrade pip
         pip install flake8 pytest
         pip install wily
+        wily build src/
         if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
     - name: Lint with flake8
       run: |
@@ -29,7 +30,5 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Analysis with wily
       run: |
-        # compile wily cache
-        wily build src/
-        # cmpare previous commit
+        # compare previous commit
         wily diff src/ -r HEAD^1
