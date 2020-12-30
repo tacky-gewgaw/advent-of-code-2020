@@ -32,4 +32,4 @@ jobs:
         # compile cache
         wily build /src
         # compare previous commit
-        wily diff /src -r HEAD^1
+        wily diff /src -r HEAD^2
